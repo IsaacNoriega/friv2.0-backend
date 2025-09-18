@@ -1,0 +1,21 @@
+{
+  "name": "friv2.0-backend",
+  "version": "1.0.0",
+  "description": "PlayZone es una aplicación web de minijuegos diseñada para entretener, retar y conectar a los usuarios en un solo lugar. La plataforma busca ofrecer una experiencia sencilla, dinámica y divertida, donde cada juego tiene su propio nivel de dificultad y ranking.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacNoriega/friv2.0-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/IsaacNoriega/friv2.0-backend/issues"
+  },
+  "homepage": "https://github.com/IsaacNoriega/friv2.0-backend#readme"
+}
