@@ -4,7 +4,8 @@
   "description": "PlayZone es una aplicación web de minijuegos diseñada para entretener, retar y conectar a los usuarios en un solo lugar. La plataforma busca ofrecer una experiencia sencilla, dinámica y divertida, donde cada juego tiene su propio nivel de dificultad y ranking.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.ts"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "@types/body-parser": "^1.19.6",
     "@types/express": "^5.0.3",
     "@types/node": "^24.5.2",
+    "dotenv": "^17.2.2",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
