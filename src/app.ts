@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-
+import index from './routes/index';
 
 dotenv.config(); // Carga las variables de entorno desde el archivo .env
 
@@ -11,7 +11,8 @@ const DB_URL = process.env.DB_URL || ''; // URL de la base de datos desde .env
 
 const app = express(); // Crea una instancia de Express
 
-
+app.use(bodyParser.json()); // Middleware para parsear JSON
+app.use('' , index); // Usa las rutas definidas en index.ts)
 // Conexión a la base de datos y arranque del servidor
 mongoose.connect(DB_URL).then(() => {
   console.log('Connected to the database');
