@@ -54,6 +54,26 @@ class AuthController {
         }
     }
 
+    // Get current user data
+    async getMe(req: Request, res: Response) {
+        try {
+            // El usuario está disponible gracias al middleware de autenticación
+            const userId = (req as any).user?.userId;
+            if (!userId) {
+                return res.status(401).json({ message: "No autorizado" });
+            }
+
+            const user = await User.findById(userId).select('-password');
+            if (!user) {
+                return res.status(404).json({ message: "Usuario no encontrado" });
+            }
+
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({ message: "Error obteniendo datos del usuario" });
+        }
+    }
+
     // Delete user
     async deleteUser(req: Request, res: Response) {
         try {

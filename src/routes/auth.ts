@@ -11,6 +11,7 @@ router.post("/register" , AuthController.register);
 router.post("/login" , AuthController.login);
 
 // CRUD routes (protected by auth middleware)
+router.get("/me", ensureAuth, AuthController.getMe);
 router.get("/users", ensureAuth, AuthController.getUsers);
 router.get("/users/:id", ensureAuth, AuthController.getUserById);
 router.put("/users/:id", ensureAuth, AuthController.updateUser);
@@ -33,9 +34,7 @@ router.get(
       { expiresIn: "1h" }
     );
 
-    // Devuelve JSON o redirige al frontend con el token
-    if (req.accepts("json")) return res.json({ token, message: "Google login successful" });
-
+    // Siempre redirige al frontend con el token
     const frontend = process.env.FRONTEND_URL || "http://localhost:5173";
     return res.redirect(`${frontend}/auth/callback#token=${token}`);
   }

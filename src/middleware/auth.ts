@@ -8,7 +8,7 @@ export function ensureAuth(req: Request, res: Response, next: NextFunction) {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET as string) as any;
-    (req as any).user = { id: payload.userId, email: payload.email };
+    (req as any).user = { userId: payload.userId, email: payload.email };
     next();
   } catch {
     return res.status(401).json({ message: "Invalid or expired token" });
