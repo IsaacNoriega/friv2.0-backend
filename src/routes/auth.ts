@@ -2,11 +2,19 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import AuthController from "../controllers/AuthController";
+import { ensureAuth } from "../middleware/auth";
 
 const router = Router();
 
+// Auth routes
 router.post("/register" , AuthController.register);
 router.post("/login" , AuthController.login);
+
+// CRUD routes (protected by auth middleware)
+router.get("/users", ensureAuth, AuthController.getUsers);
+router.get("/users/:id", ensureAuth, AuthController.getUserById);
+router.put("/users/:id", ensureAuth, AuthController.updateUser);
+router.delete("/users/:id", ensureAuth, AuthController.deleteUser);
 
 router.get(
   "/google",
