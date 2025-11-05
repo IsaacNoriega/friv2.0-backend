@@ -8,15 +8,25 @@ class LeaderBoardController {
     // Guarda o actualiza (solo si es mejor) la score del usuario para un juego
     async postScore ( req : Request , res : Response ) {
         try {
-            const userId = (req as any).user?.id || (req as any).user?._id;
+            const userId = (req as any).user?.userId;  // Cambiado para usar userId del token
             const { name } = req.params;
             const { score } = req.body;
   console.log("[postScore] headers:", req.headers);
   console.log("[postScore] params:", req.params);
   console.log("[postScore] body:", req.body);
   console.log("[postScore] req.user:", (req as any).user);
-            if (!userId || !name || typeof score !== "number") {
-                return res.status(400).json({ message: "Missing user, game name or numeric score" });
+  console.log("[postScore] userId:", userId);
+  console.log("[postScore] name:", name);
+  console.log("[postScore] score:", score, typeof score);
+
+            if (!userId) {
+                return res.status(400).json({ message: "Usuario no autenticado o token inválido" });
+            }
+            if (!name) {
+                return res.status(400).json({ message: "Nombre del juego es requerido" });
+            }
+            if (typeof score !== "number") {
+                return res.status(400).json({ message: "Score debe ser un número" });
             }
 
             const user = await User.findById(userId).select("username");
