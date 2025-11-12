@@ -69,6 +69,38 @@ class LeaderBoardController {
         }
     }
 
+    // Obtener todos los scores de un usuario por su id (público)
+    async getByUser ( req: Request , res: Response ) {
+        try {
+            const userId = req.params.id;
+            if (!userId) return res.status(400).json({ message: "Missing user id" });
+
+            const scores = await LeaderBoard.find({ user_id: userId })
+                .sort({ score: -1 })
+                .select("name score username createdAt -_id");
+
+            return res.status(200).json({ user: userId, scores });
+        } catch (err: any) {
+            return res.status(500).json({ message: "Error fetching user scores", error: err?.message });
+        }
+    }
+
+    // Obtener scores del usuario autenticado
+    async getMyScores ( req: Request , res: Response ) {
+        try {
+            const userId = (req as any).user?.userId;
+            if (!userId) return res.status(400).json({ message: "Usuario no autenticado o token inválido" });
+
+            const scores = await LeaderBoard.find({ user_id: userId })
+                .sort({ score: -1 })
+                .select("name score username createdAt -_id");
+
+            return res.status(200).json({ user: userId, scores });
+        } catch (err: any) {
+            return res.status(500).json({ message: "Error fetching my scores", error: err?.message });
+        }
+    }
+
 };
 
 
