@@ -34,9 +34,9 @@ router.get(
       { expiresIn: "1h" }
     );
 
-    // Siempre redirige al frontend con el token
+    // Redirige al login con el token para que lo procese desde ahí
     const frontend = process.env.FRONTEND_URL || "http://localhost:5173";
-    return res.redirect(`${frontend}/auth/callback#token=${token}`);
+    return res.redirect(`${frontend}/login?googleToken=${token}`);
   }
 );
 
