@@ -19,21 +19,8 @@ const app = express();
 // =======================
 
 // ✅ Habilita CORS para todas las solicitudes
-const allowedOrigins = process.env.FRONTEND_URL 
-  ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'https://friv2-0.onrender.com'] 
-  : ['http://localhost:5173', 'https://friv2-0.onrender.com'];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    // Permitir peticiones sin origin (mobile apps, postman, etc)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true, // Permitir todos los orígenes temporalmente
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
