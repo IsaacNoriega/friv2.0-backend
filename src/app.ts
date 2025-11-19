@@ -19,10 +19,24 @@ const app = express();
 // =======================
 
 // ✅ Habilita CORS para todas las solicitudes
+const allowedOrigins = process.env.FRONTEND_URL 
+  ? [process.env.FRONTEND_URL, 'http://localhost:5173'] 
+  : ['http://localhost:5173'];
+
 app.use(cors({
-  origin: '*', // o reemplaza '*' por tu frontend (por ej: 'http://localhost:5173')
+  origin: (origin, callback) => {
+    // Permitir peticiones sin origin (mobile apps, postman, etc)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 app.use(bodyParser.json()); // Middleware para parsear JSON
