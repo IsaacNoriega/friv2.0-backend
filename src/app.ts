@@ -20,8 +20,8 @@ const app = express();
 
 // ✅ Habilita CORS para todas las solicitudes
 const allowedOrigins = process.env.FRONTEND_URL 
-  ? [process.env.FRONTEND_URL, 'http://localhost:5173'] 
-  : ['http://localhost:5173'];
+  ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'https://friv2-0.onrender.com'] 
+  : ['http://localhost:5173', 'https://friv2-0.onrender.com'];
 
 app.use(cors({
   origin: (origin, callback) => {
