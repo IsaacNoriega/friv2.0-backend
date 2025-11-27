@@ -63,6 +63,9 @@ class LeaderBoardController {
                 .limit(limit)
                 .select("username score user_id -_id");
 
+            if (!top || top.length === 0) {
+                return res.status(404).json({ message: "No leaderboard data found for this game" });
+            }
             return res.status(200).json({ game: name, top });
         } catch (err: any) {
             return res.status(500).json({ message: "Error fetching leaderboard", error: err?.message });
